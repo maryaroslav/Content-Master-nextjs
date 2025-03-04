@@ -13,7 +13,7 @@ const HeaderWelcome = () => {
             </div>
             <nav className='nav'>
                 <Link href="/sign-in" className='link'>Sign In</Link>
-                <Link href="/register" className='link special'>Sign Up</Link>
+                <Link href="/sign-up" className='link special'>Sign Up</Link>
             </nav>
         </header>
     );

@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from 'react';
-import Image from 'next/image'
+import Image from 'next/image';
+import Link from 'next/link';
 // import { useDispatch } from 'react-redux';
 // import { useNavigate } from 'react-router-dom';
 
@@ -69,12 +70,12 @@ const AuthForm = ({ type }) => {
                     <button className='btn-authForm' type="submit">{type === 'login' ? 'Sign In' : 'Sign Up'}</button>
                     {type === 'login' && (
                         <div className='register'>
-                            <p>Don’t have an account? <a href="/register">Create account</a></p>
+                            <p>Don’t have an account? <Link href="/sign-up">Create account</Link></p>
                         </div>
                     )}
                     {type === 'register' && (
                         <div className='register'>
-                            <p>Already have an account? <a href="/login">Sign in</a></p>
+                            <p>Already have an account? <Link href="/sign-in">Sign in</Link></p>
                         </div>
                     )}
                 </form>
