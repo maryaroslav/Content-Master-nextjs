@@ -1,5 +1,7 @@
 "use client";
 
+import Image from 'next/image';
+
 import AddPost from './AddPost';
 import CommunityCard from './CommunityCard';
 import { getCurrentUser } from '../utils/getCurrentUser';
@@ -81,7 +83,7 @@ const FeedPost = ({ post, onDelete, isAdmin }) => {
           )}
           {post.img && (
             <div className={`feed-posts-image ${orientation}`}>
-              <img src={post.img} alt="post" onLoad={handleImageLoad} />
+              <Image src={post.img} alt="post" onLoad={handleImageLoad}/>
             </div>
           )}
         </div>

@@ -6,6 +6,7 @@ import gifIcon from '../img/gifButton.svg';
 import emojiIcon from '../img/emojiButton.svg';
 import defaultImage from '../img/13.svg'
 
+import Image from 'next/image';
 import { use, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addPost } from '../reducers/postsSlice'
@@ -53,7 +54,7 @@ const AddPost = () => {
     return (
         <div className="addpost-container">
             <div className="addpost-user-img">
-                <img src={user} alt="" />
+                <Image src={user} alt="" />
             </div>
             <div className="addpost-input">
                 <input
@@ -70,7 +71,7 @@ const AddPost = () => {
                 <div className="addpost-buttons">
           <button>
             <label>
-              <img src={uploadIcon} alt="Upload Photo" />
+              <Image src={uploadIcon} alt="Upload Photo" />
               <input
                 type="file"
                 accept="image/*"
@@ -80,10 +81,10 @@ const AddPost = () => {
             </label>
           </button>
                     <button>
-                        <img src={gifIcon} alt="Upload GIF" />
+                        <Image src={gifIcon} alt="Upload GIF"/>
                     </button>
                     <button>
-                        <img src={emojiIcon} alt="Choose Emoji" />
+                        <Image src={emojiIcon} alt="Choose Emoji" />
                     </button>
                 </div>
             </div>

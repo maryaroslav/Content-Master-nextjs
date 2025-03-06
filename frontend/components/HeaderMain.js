@@ -3,8 +3,8 @@
 import React from "react";
 import Image from 'next/image';
 import Link from 'next/link';
-// import { useNavigate } from 'react-router-dom';
-// import { getCurrentUser } from '../utils/getCurrentUser';
+import { useRouter } from "next/navigation";
+import { getCurrentUser } from '../utils/getCurrentUser';
 
 import '../styles/headerMain.css';
 import logo from '../img/logo.svg';
@@ -15,16 +15,16 @@ import user from '../img/user.svg';
 import arrowDown from '../img/arrow-down.svg';
 
 const HeaderMain = () => {
-    // const navigate = useNavigate();
-    // const currentUser = getCurrentUser();
+    const router = useRouter();
+    const currentUser = getCurrentUser();
 
-    // if (!currentUser) {
-    //     navigate('/register')
-    // }
+    if (!currentUser) {
+        router.push('/register')
+    }
 
     const handleToMain = (event) => {
         event.preventDefault();
-        navigate('/')
+        router.push('/')
     }
 
     return (

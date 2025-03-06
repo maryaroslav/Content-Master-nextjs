@@ -1,6 +1,8 @@
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import '../style/feedCommunity.css'
+import '../styles/feedCommunity.css'
 import arrowDown from '../img/arrow-down.svg';
 
 const FeedCommunity = () => {
@@ -21,14 +23,14 @@ const FeedCommunity = () => {
             <div className="feedcommunity-container">
                 {events.map((event, index) => (
                     <div key={index} className="feedcommunity-item">
-                        <img src={event.img} alt={event.title} />
+                        <Image src={event.img} alt={event.title} />
                         <div className="feedcommunity-item-title">
                             <p className="event-date">{event.date}</p>
                             <p className="feedcommunity-name">{event.name}</p>
                             <p className="feedcommunity-members">{event.people} people have joined this event</p>
                         </div>
                         <div className='feedcommunity-arrow'>
-                            <img src={arrowDown} alt="" />
+                            <Image src={arrowDown} alt="" />
                         </div>
                     </div>
                 ))}

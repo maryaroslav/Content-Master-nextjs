@@ -1,24 +1,13 @@
-import React from "react";
 import HeaderMain from '../../components/HeaderMain';
-import NavBar from '../../components/NavBar';
-import NavBarLeft from '../../components/NavBarLeft'
-import NavBarRight from '../../components/NavBarRight'
-import FeedEvent from "../../components/FeedEvent";
+import NavBar from "../../components/NavBar";
 
-import '../../styles/main.css'
-
-const EventsPage = () => {
+const SettingPage = () => {
     return (
-        <div className="page-container">
+        <div>
             <HeaderMain />
             <NavBar />
-            <div className="main-info-container">
-                <NavBarLeft />
-                <FeedEvent />
-                <NavBarRight />
-            </div>
         </div>
     )
 }
 
-export default EventsPage;
+export default SettingPage;
