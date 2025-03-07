@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../config/db');
-const User = reeuire('./User');
+const User = require('./User');
 
 const db = {};
 
