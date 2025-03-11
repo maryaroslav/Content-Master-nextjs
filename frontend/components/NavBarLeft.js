@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 import '../styles/navBarLeft.css'
 
-import arrowDown from '../img/arrow-down.svg';
+import arrowDown from '../public/img/icons/arrow-down.svg';
 
 const NavBarLeft = () => {
   const [showAllCommunities, setShowAllCommunities] = useState(false);

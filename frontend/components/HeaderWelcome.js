@@ -2,7 +2,7 @@ import React from "react";
 import Image from 'next/image'
 import Link from 'next/link'
 import '../styles/headerWelcome.css';
-import logo from '../img/logo.svg';
+import logo from '../public/img/logo/logo.svg';
 
 const HeaderWelcome = () => {
     return (

@@ -7,10 +7,9 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 import '../styles/authForm.css';
-import loginImg from '../img/login_1.png';
-import registerImg from '../img/register_1.png';
+import loginImg from '../public/img/auth/login_1.png';
+import registerImg from '../public/img/auth/register_1.png';
 
-// import { login } from '../reducers/authSlice'
 
 const AuthForm = ({ type }) => {
     const [email, setEmail] = useState('');

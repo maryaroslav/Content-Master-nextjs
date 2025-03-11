@@ -7,12 +7,12 @@ import { useRouter } from "next/navigation";
 import { getCurrentUser } from '../utils/getCurrentUser';
 
 import '../styles/headerMain.css';
-import logo from '../img/logo.svg';
-import search from '../img/search.svg';
-import message from '../img/message.svg';
-import kolokolchik from '../img/kolokolchik.svg';
-import user from '../img/user.svg';
-import arrowDown from '../img/arrow-down.svg';
+import logo from '../public/img/logo/logo.svg';
+import search from '../public/img/icons/search.svg';
+import message from '../public/img/icons/message.svg';
+import kolokolchik from '../public/img/icons/notification.svg';
+import user from '../public/img/icons/user.svg';
+import arrowDown from '../public/img/icons/arrow-down.svg';
 
 const HeaderMain = () => {
     const router = useRouter();

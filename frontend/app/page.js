@@ -8,21 +8,21 @@ import Image from 'next/image';
 import HeaderWelcome from "../components/HeaderWelcome";
 import '../styles/welcome.css';
 
-import bag from '../img/bag.svg';
-import ball from '../img/ball.svg';
-import bank from '../img/bank.svg';
-import heart from '../img/heart.svg';
-import green from '../img/green.svg';
-import fire from '../img/fire.svg';
-import gamepad from '../img/gamepad.svg';
-import guitar from '../img/guitar.svg';
-import hat from '../img/hat.svg';
-import light from '../img/light.svg';
-import like from '../img/like.svg';
-import tent from '../img/tent.svg';
-import smile from '../img/smile.svg'
-import hand from '../img/hand.svg'
-import ship from '../img/ship.svg'
+import bag from '../public/img/first_page/bag.svg';
+import ball from '../public/img/first_page/ball.svg';
+import bank from '../public/img/first_page/bank.svg';
+import heart from '../public/img/first_page/heart.svg';
+import green from '../public/img/first_page/green.svg';
+import fire from '../public/img/first_page/fire.svg';
+import gamepad from '../public/img/first_page/gamepad.svg';
+import guitar from '../public/img/first_page/guitar.svg';
+import hat from '../public/img/first_page/hat.svg';
+import light from '../public/img/first_page/light.svg';
+import like from '../public/img/first_page/like.svg';
+import tent from '../public/img/first_page/tent.svg';
+import smile from '../public/img/first_page/smile.svg'
+import hand from '../public/img/first_page/hand.svg'
+import ship from '../public/img/first_page/ship.svg'
 
 const Welcome = () => {
     const router = useRouter();

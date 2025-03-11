@@ -1,10 +1,10 @@
 import '../styles/addPost.css'
 
-import user from '../img/user.svg';
-import uploadIcon from '../img/imagesButton.svg';
-import gifIcon from '../img/gifButton.svg';
-import emojiIcon from '../img/emojiButton.svg';
-import defaultImage from '../img/13.svg'
+import user from '../public/img/icons/user.svg';
+import uploadIcon from '../public/img/icons/imagesButton.svg';
+import gifIcon from '../public/img/icons/gifButton.svg';
+import emojiIcon from '../public/img/icons/emojiButton.svg';
+import defaultImage from '../public/img/icons/13.svg'
 
 import Image from 'next/image';
 import { use, useState } from 'react';
