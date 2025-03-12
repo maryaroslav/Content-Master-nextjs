@@ -6,9 +6,9 @@ import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
-import '../styles/authForm.css';
-import loginImg from '../public/img/auth/login_1.png';
-import registerImg from '../public/img/auth/register_1.png';
+import '@/styles/authForm.css';
+import loginImg from '@/public/img/auth/login_1.png';
+import registerImg from '@/public/img/auth/register_1.png';
 
 
 const AuthForm = ({ type }) => {
@@ -26,8 +26,16 @@ const AuthForm = ({ type }) => {
             const result = await signIn('credentials', {
                 email,
                 password,
-                redirect: false
+                redirect: false,
+                callbackUrl: '/explore'
             });
+            if (result?.error) {
+                console.log("❌ Ошибка входа:", result.error);
+                setError(result.error);
+            } else {
+                console.log("✅ Успешный вход:", result);
+                router.push('/explore');
+            }
             if (result?.error) {
                 setError(result.error)
             } else {

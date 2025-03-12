@@ -4,5 +4,6 @@
 
 **/.next/
 
+test.js
 
 .env*

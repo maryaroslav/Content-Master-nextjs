@@ -1,26 +1,21 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
-import { getCurrentUser } from '../utils/getCurrentUser';
 
-import '../styles/headerMain.css';
-import logo from '../public/img/logo/logo.svg';
-import search from '../public/img/icons/search.svg';
-import message from '../public/img/icons/message.svg';
-import kolokolchik from '../public/img/icons/notification.svg';
-import user from '../public/img/icons/user.svg';
-import arrowDown from '../public/img/icons/arrow-down.svg';
+import '@/styles/headerMain.css';
+import logo from '@/public/img/logo/logo.svg';
+import search from '@/public/img/icons/search.svg';
+import message from '@/public/img/icons/message.svg';
+import kolokolchik from '@/public/img/icons/notification.svg';
+import user from '@/public/img/icons/user.svg';
+import arrowDown from '@/public/img/icons/arrow-down.svg';
 
 const HeaderMain = () => {
     const router = useRouter();
-    const currentUser = getCurrentUser();
 
-    if (!currentUser) {
-        router.push('/register')
-    }
 
     const handleToMain = (event) => {
         event.preventDefault();

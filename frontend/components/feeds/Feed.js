@@ -2,13 +2,13 @@
 
 import Image from 'next/image';
 
-import AddPost from './AddPost';
-import CommunityCard from './CommunityCard';
-import { getCurrentUser } from '../utils/getCurrentUser';
+import AddPost from '../AddPost';
+import CommunityCard from '../CommunityCard';
+import { getCurrentUser } from '../../utils/getCurrentUser';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { mergePosts, deletePost } from '../reducers/postsSlice';
-import '../styles/feed.css';
+import '@/styles/feed.css';
 
 
 const Feed = () => {

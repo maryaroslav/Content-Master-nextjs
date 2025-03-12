@@ -26,7 +26,7 @@ export const authOptions = {
                     const data = await res.json();
                     console.log('Login success:', data);
 
-                    return { id: data.user.id, email: data.user.email, token: data.token };
+                    return { id: String(data.user.id || data.user.user_id), email: data.user.email, token: data.token };
                 } catch (error) {
                     console.error('Login error:', error.message);
                     return null;
@@ -40,7 +40,7 @@ export const authOptions = {
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
-                token.id = user.id;
+                token.id = user.id ?? user.user_id ?? null;
                 token.email = user.email;
                 token.accessToken = user.token;
             }
@@ -48,17 +48,21 @@ export const authOptions = {
         },
         async session({ session, token }) {
             if (token) {
-                session.user.id = token.id;
-                session.user.email = token.email;
-                session.user.token = token.accessToken;
+                session.user = {
+                    id: token.id ?? null,
+                    email: token.email,
+                    token: token.accessToken ?? null
+                };
             }
+            console.log("📌 Session Updated:", session);
             return session;
         }
     },
     pages: {
-        signIn: "/sign-in"
+        signIn: "/login"
     },
-    secret: process.env.NEXTAUTH_SECRET || 'supersecret'
+    secret: process.env.NEXTAUTH_SECRET || 'supersecret',
+    debug: true
 };
 
 const handler = NextAuth(authOptions);

@@ -1,11 +1,17 @@
 import "./globals.css";
 import Providers from "./Providers";
+import AuthGuard from "@/components/auth/AuthGuard";
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+
   return (
     <html lang="en">
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <AuthGuard>
+            {children}
+          </AuthGuard>
+        </Providers>
       </body>
     </html>
   );

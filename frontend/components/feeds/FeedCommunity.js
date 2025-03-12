@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
-import '../styles/feedCommunity.css'
-import arrowDown from '../public/img/icons/arrow-down.svg';
+import '@/styles/feedCommunity.css'
+import arrowDown from '@/public/img/icons/arrow-down.svg';
 
 const FeedCommunity = () => {
     // const dispatch = useDispatch();

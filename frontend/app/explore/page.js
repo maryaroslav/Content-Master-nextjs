@@ -1,9 +1,12 @@
+"use client";
+
 import React from "react";
-import HeaderMain from '../../components/HeaderMain';
+
+import HeaderMain from '../../components/headers/HeaderMain';
 import NavBar from '../../components/NavBar';
-import NavBarLeft from '../../components/NavBarLeft'
-import NavBarRight from '../../components/NavBarRight'
-import Feed from "../../components/Feed";
+import NavBarLeft from '../../components/sidebars/NavBarLeft'
+import NavBarRight from '../../components/sidebars/NavBarRight'
+import Feed from "../../components/feeds/Feed";
 
 import '../../styles/main.css'
 

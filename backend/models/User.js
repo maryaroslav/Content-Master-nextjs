@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-    return sequelize.define('User', {
+    const User = sequelize.define('User', {
         user_id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -40,16 +40,6 @@ module.exports = (sequelize) => {
             allowNull: true,
             defaultValue: null
         },
-        created_at: {
-            type: DataTypes.DATE,
-            allowNull: false,
-            defaultValue: DataTypes.NOW
-        },
-        updated_at: {
-            type: DataTypes.DATE,
-            allowNull: false,
-            defaultValue: DataTypes.NOW
-        },
         is_active: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
@@ -66,7 +56,20 @@ module.exports = (sequelize) => {
         createdAt: 'created_at',
         updatedAt: 'updated_at',
         charset: 'utf8mb4',
-        collate: 'utf8mb4_0900_ai_ci'
+        collate: 'utf8mb4_0900_ai_ci',
     });
-}
+
+    User.associate = (models) => {
+        User.hasMany(models.Community, {
+            foreignKey: 'owner_id'
+        });
+        User.belongsToMany(models.Community, {
+            through: models.UserCommunity,
+            foreignKey: 'user_id',
+            otherKey: 'community_id'
+        });
+    };
+
+    return User;
+};
 

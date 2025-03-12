@@ -3,26 +3,26 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-import '../styles/navBarLeft.css'
+import '@/styles/navBarLeft.css'
 
-import arrowDown from '../public/img/icons/arrow-down.svg';
+import arrowDown from '@/public/img/icons/arrow-down.svg';
 
 const NavBarLeft = () => {
   const [showAllCommunities, setShowAllCommunities] = useState(false);
   const [showAllEvents, setShowAllEvents] = useState(false);
   const [communities, setCommunities] = useState([]);
   const [events, setEvents] = useState([]);
-  useEffect(() => {
-    fetch("/data/community.json")
-      .then((res) => res.json())
-      .then((data) => setCommunities(data))
-      .catch((err) => console.error(err))
+  // useEffect(() => {
+  //   fetch("/data/community.json")
+  //     .then((res) => res.json())
+  //     .then((data) => setCommunities(data))
+  //     .catch((err) => console.error(err))
 
-    fetch("/data/events.json")
-      .then((res) => res.json())
-      .then((data) => setEvents(data))
-      .catch((err) => console.error(err))
-  }, []);
+  //   fetch("/data/events.json")
+  //     .then((res) => res.json())
+  //     .then((data) => setEvents(data))
+  //     .catch((err) => console.error(err))
+  // }, []);
 
   return (
     <div className="sidebar-container">

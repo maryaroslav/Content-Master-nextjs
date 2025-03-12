@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from 'next/image';
 // import { getCurrentUser } from '../utils/getCurrentUser';
 
-import HeaderWelcome from "../components/HeaderWelcome";
+import HeaderWelcome from "../components/headers/HeaderWelcome";
 import '../styles/welcome.css';
 
 import bag from '../public/img/first_page/bag.svg';

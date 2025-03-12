@@ -1,4 +1,4 @@
-import HeaderMain from '../../components/HeaderMain';
+import HeaderMain from '../../components/headers/HeaderMain';
 import NavBar from "../../components/NavBar";
 
 const SettingPage = () => {

@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import CommunityCard from './CommunityCard';
+import CommunityCard from '../CommunityCard';
 
-import '../styles/navBarRight.css'
+import '@/styles/navBarRight.css'
 
-import arrowDown from '../public/img/icons/arrow-down.svg';
+import arrowDown from '@/public/img/icons/arrow-down.svg';
 
 const colors = [
   { bg: '#E5F6FF', icon: '#E5F6FF' },
@@ -22,24 +22,24 @@ const NavBarRight = () => {
   const [podcasts, setPodcasts] = useState([]);
   const [items, setItems] = useState([]);
 
-  useEffect(() => {
-    fetch("/data/tags.json")
-      .then((res) => res.json())
-      .then((data) => {
-        const updatedData = data.map((item, index) => ({
-          ...item,
-          bg: colors[index % colors.length].bg,
-          color: colors[index % colors.length].icon
-        }));
-        setItems(updatedData);
-      })
-      .catch((err) => console.error(err));
+  // useEffect(() => {
+  //   fetch("/data/tags.json")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       const updatedData = data.map((item, index) => ({
+  //         ...item,
+  //         bg: colors[index % colors.length].b@
+  //         color: colors[index % colors.length].icon
+  //       }));
+  //       setItems(updatedData);
+  //     })
+  //     .catch((err) => console.error(err));
 
-    fetch("/data/podcasts.json")
-      .then((res) => res.json())
-      .then((data) => setPodcasts(data))
-      .catch((err) => console.error(err));
-  }, []);
+  //   fetch("/data/podcasts.json")
+  //     .then((res) => res.json())
+  //     .then((data) => setPodcasts(data))
+  //     .catch((err) => console.error(err));
+  // }, []);
 
   return (
     <div className="sidebarRight-container">
