@@ -2,8 +2,8 @@
 
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSession, getSession } from "next-auth/react";
 import Image from 'next/image';
-// import { getCurrentUser } from '../utils/getCurrentUser';
 
 import HeaderWelcome from "../components/headers/HeaderWelcome";
 import '../styles/welcome.css';
@@ -25,8 +25,8 @@ import hand from '../public/img/first_page/hand.svg'
 import ship from '../public/img/first_page/ship.svg'
 
 const Welcome = () => {
+    const { status } = useSession();
     const router = useRouter();
-    // const currentUser = getCurrentUser();
 
     useEffect(() => {
         document.documentElement.style.overflow = "hidden";
@@ -35,8 +35,17 @@ const Welcome = () => {
         };
     }, []);
 
+    useEffect(() => {
+        const fetchToken = async () => {
+            const session = await getSession();
+            console.log("🔹 Session from NextAuth:", session);
+        };
+
+        fetchToken();
+    }, []);
+
     const handleClick = () => {
-        if (currentUser) {
+        if (status === 'authenticated') {
             router.push('/explore')
         } else {
             router.push('/login')
@@ -54,8 +63,8 @@ const Welcome = () => {
                     <div className="info-text">
                         <p>Ask questions, share ideas, and build connections with each other.</p>
                     </div>
-                    <div className="info-button">
-                        <a onClick={handleClick}>Join Content Master Community <Image src={ship} alt="ship"></Image></a>
+                    <div className="info-button" onClick={handleClick}>
+                        <a>Join Content Master Community <Image src={ship} alt="ship"></Image></a>
                     </div>
                 </div>
             </div>

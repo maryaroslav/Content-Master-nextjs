@@ -9,7 +9,7 @@ export default function AuthGuard({ children }) {
     const router = useRouter();
     const pathname = usePathname();
 
-    const publicRoutes = ["/", "/register"];
+    const publicRoutes = ["/", "/register", "/login"];
 
     useEffect(() => {
         if (status === "unauthenticated" && !publicRoutes.includes(pathname)) {

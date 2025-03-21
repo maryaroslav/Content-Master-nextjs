@@ -40,28 +40,26 @@ export const authOptions = {
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
-                token.id = user.id ?? user.user_id ?? null;
-                token.email = user.email;
                 token.accessToken = user.token;
+                token.id = user.id;
+                token.email = user.email;
             }
             return token;
         },
         async session({ session, token }) {
-            if (token) {
-                session.user = {
-                    id: token.id ?? null,
-                    email: token.email,
-                    token: token.accessToken ?? null
-                };
-            }
-            console.log("📌 Session Updated:", session);
+            session.accessToken = token.accessToken;
+            session.user = {
+                id: token.id,
+                email: token.email,
+            };
+            console.log('Session Updated:', session);
             return session;
         }
     },
     pages: {
         signIn: "/login"
     },
-    secret: process.env.NEXTAUTH_SECRET || 'supersecret',
+    secret: process.env.NEXTAUTH_SECRET,
     debug: true
 };
 

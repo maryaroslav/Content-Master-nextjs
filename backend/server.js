@@ -1,18 +1,27 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
-const bodyParse = require('body-parser');
+const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
 const db = require('./models');
 
 const app = express();
 
 app.use(cors({
     origin: 'http://localhost:3000',
-    credentials: true
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
 }));
+
+app.use(cookieParser());
+
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 
 const startServer = async () => {
     try {

@@ -5,7 +5,7 @@ const { User } = require('../models');
 
 const router = express.Router();
 
-const SECRET_KEY = process.env.JWT_SECRET || 'superkey';
+const SECRET_KEY = process.env.NEXTAUTH_SECRET;
 
 router.post('/register', async (req, res) => {
     try {

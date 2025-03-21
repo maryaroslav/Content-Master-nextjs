@@ -1,20 +1,37 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
+import { fetchWithAuth } from "@/app/lib/apiClient";
 
 import '@/styles/headerMain.css';
 import logo from '@/public/img/logo/logo.svg';
 import search from '@/public/img/icons/search.svg';
 import message from '@/public/img/icons/message.svg';
 import kolokolchik from '@/public/img/icons/notification.svg';
-import user from '@/public/img/icons/user.svg';
+import userImg from '@/public/img/icons/user.svg';
 import arrowDown from '@/public/img/icons/arrow-down.svg';
 
 const HeaderMain = () => {
     const router = useRouter();
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+          try {
+            const data = await fetchWithAuth("http://localhost:5000/api/user/me");
+            if (data) setUser(data);
+          } catch (err) {
+            console.error("Error loading user", err);
+          } finally {
+            setLoading(false);
+          }
+        };
+        fetchUser();
+      }, []);
 
 
     const handleToMain = (event) => {
@@ -40,10 +57,15 @@ const HeaderMain = () => {
                 <div className="user-container">
                     <div className="user">
                         <div className="user-img">
-                            <Image src={user} alt=""/>
+                            {user?.profile_picture ? (
+                                <Image src={user.profile_picture} alt="user avatar" />
+                            ) : (
+                                <Image src={userImg} alt="Default user icon" />
+                            )}
+
                         </div>
                         <div className="user-name">
-                            <p></p>
+                            <p>{loading ? 'Loading...' : user ? user.username : '...'}</p>
                         </div>
                         <div className="user-modal">
                             <Image src={arrowDown} alt="" />
