@@ -2,6 +2,8 @@ const express = require('express');
 const authToken = require('../middleware/authToken');
 const { User } = require('../models');
 
+const userCommunitiesRoutes = require('./userСommunities');
+
 const router = express.Router();
 
 router.get('/me', authToken, async (req, res) => {
@@ -33,5 +35,7 @@ router.get('/me', authToken, async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
+router.use(userCommunitiesRoutes);
 
 module.exports = router;

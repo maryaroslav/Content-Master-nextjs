@@ -5,7 +5,7 @@ const { User } = require('../models');
 
 const router = express.Router();
 
-const SECRET_KEY = process.env.NEXTAUTH_SECRET;
+const SECRET_KEY = process.env.JWT_SECRET;
 
 router.post('/register', async (req, res) => {
     try {
@@ -44,7 +44,7 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
 
-        const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, { expiresIn: '1h' });
+        const token = jwt.sign({ user_id: user.user_id, email: user.email }, SECRET_KEY, { expiresIn: '1h' });
         res.json({ token, user });
     } catch (err) {
         console.error(err)

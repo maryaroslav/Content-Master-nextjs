@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import jwt from 'jsonwebtoken';
 
 export const authOptions = {
     providers: [
@@ -37,11 +38,20 @@ export const authOptions = {
     session: {
         strategy: 'jwt'
     },
+    jwt: {
+        secret: process.env.NEXTAUTH_SECRET,
+        encode: async ({token, secret}) => {
+            return jwt.sign(token, secret, {algorithm: 'HS256'});
+        },
+        decode: async ({token , secret}) => {
+            return jwt.verify(token, secret);
+        }
+    },
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
                 token.accessToken = user.token;
-                token.id = user.id;
+                token.id = user.id || user.user_id;;
                 token.email = user.email;
             }
             return token;

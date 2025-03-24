@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
@@ -12,11 +13,22 @@ import registerImg from '@/public/img/auth/register_1.png';
 
 
 const AuthForm = ({ type }) => {
+    const { data: session, status } = useSession();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
     const [error, setError] = useState('');
+
     const router = useRouter();
+
+    useEffect(() => {
+        if (status === 'authenticated') {
+            router.push('/explore')
+        }
+    }, [status]);
+
+    if (status === 'loading') return null;
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -30,10 +42,10 @@ const AuthForm = ({ type }) => {
                 callbackUrl: '/explore'
             });
             if (result?.error) {
-                console.log("❌ Ошибка входа:", result.error);
+                console.log('Error', result.error);
                 setError(result.error);
             } else {
-                console.log("✅ Успешный вход:", result);
+                console.log("Success", result);
                 router.push('/explore');
             }
             if (result?.error) {
