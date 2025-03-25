@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import '@/styles/authForm.css';
 import loginImg from '@/public/img/auth/login_1.png';
 import registerImg from '@/public/img/auth/register_1.png';
+import crossImg from '@/public/img/icons/cross.svg';
 
 
 const AuthForm = ({ type }) => {
@@ -19,6 +20,7 @@ const AuthForm = ({ type }) => {
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const router = useRouter();
 
@@ -32,7 +34,26 @@ const AuthForm = ({ type }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setError(null);
+        setError('');
+        setLoading(true);
+
+        if (!email.includes('@')) {
+            setError('Please enter a valid email');
+            setLoading(false);
+            return;
+        }
+
+        if (type === 'register' && password.length < 8) {
+            setError('Password must be at least 8 characters long');
+            setLoading(false);
+            return;
+        }
+
+        if (type === 'register' && username.length < 5) {
+            setError('Username must be at least 8 characters long');
+            setLoading(false);
+            return;
+        }
 
         if (type === 'login') {
             const result = await signIn('credentials', {
@@ -41,18 +62,20 @@ const AuthForm = ({ type }) => {
                 redirect: false,
                 callbackUrl: '/explore'
             });
+
             if (result?.error) {
-                console.log('Error', result.error);
-                setError(result.error);
+                console.log('Login error: ', result.error);
+
+                if (result.error === 'CredentialsSignin') {
+                    setError('Invalid email or password');
+                } else {
+                    setError(result.error);
+                }
+                setLoading(false);
             } else {
-                console.log("Success", result);
-                router.push('/explore');
+                router.push('/explore')
             }
-            if (result?.error) {
-                setError(result.error)
-            } else {
-                router.push('/explore');
-            }
+
         } else {
             try {
                 const res = await fetch('http://localhost:5000/api/auth/register', {
@@ -62,6 +85,7 @@ const AuthForm = ({ type }) => {
                 });
 
                 const data = await res.json();
+
                 if (!res.ok) {
                     throw new Error(data.message || 'Failed to register');
                 }
@@ -73,7 +97,9 @@ const AuthForm = ({ type }) => {
                 });
                 router.push('/explore');
             } catch (err) {
+                console.error('Registration error: ', err.message);
                 setError(err.message);
+                setLoading(false);
             }
         }
     };
@@ -83,7 +109,12 @@ const AuthForm = ({ type }) => {
             <div className='form-container'>
                 <form onSubmit={handleSubmit}>
                     <h1>{type === 'login' ? 'Sign In to your account' : 'Create your account'}</h1>
-                    {error && <p className='error-message'>{error}</p>}
+                    {error &&
+                        <div className='error-message'>
+                            <Image src={crossImg} width={25} height={25} alt='error' />
+                            <p>{error}</p>
+                        </div>
+                    }
                     <div className='input-email input-box'>
                         <p>Email</p>
                         <input
@@ -102,6 +133,7 @@ const AuthForm = ({ type }) => {
                             value={password}
                             onChange={(event) => setPassword(event.target.value)}
                             required
+                            className={error && type === 'register' && password.length < 8 ? 'input-error' : ''}
                         />
                     </div>
                     {type === 'register' && (
@@ -113,6 +145,7 @@ const AuthForm = ({ type }) => {
                                 value={username}
                                 onChange={(event) => setUsername(event.target.value)}
                                 required
+                                className={error && type === 'register' && username.length < 5 ? 'input-error' : ''}
                             />
                         </div>
                     )}

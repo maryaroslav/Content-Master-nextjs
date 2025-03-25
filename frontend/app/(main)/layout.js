@@ -3,21 +3,15 @@ import NavBar from '@/components/NavBar';
 import NavBarLeft from '@/components/sidebars/NavBarLeft';
 import NavBarRight from '@/components/sidebars/NavBarRight';
 
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../api/auth/[...nextauth]/route';
-
+import { getAccessTokenOrRedirect } from '../lib/apiClient.server';
 import '../../styles/main.css';
 
-async function getUserCommunities() {
-    const session = await getServerSession(authOptions);
-
-    if (!session || !session.accessToken) {
-        throw new Error('Unauthorized');
-    }
+async function getUserCommunities () {
+    const accessToken = await getAccessTokenOrRedirect();
 
     const res = await fetch('http://localhost:5000/api/user/usercommunities', {
         headers: {
-            Authorization: `Bearer ${session.accessToken}`
+            Authorization: `Bearer ${accessToken}`
         },
         cache: 'no-store'
     });
@@ -29,15 +23,33 @@ async function getUserCommunities() {
     return res.json();  
 }
 
+async function getUserEvents () {
+    const accessToken = await getAccessTokenOrRedirect();
+
+    const res = await fetch('http://localhost:5000/api/user/userevents', {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        },
+        cache: 'no-store'
+    });
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch events');
+    }
+
+    return res.json();
+}
+
 export default async function MainLayout({ children }) {
     const communities = await getUserCommunities();
+    const events = await getUserEvents();
 
     return (
         <div className="page-layout">
             <HeaderMain />
             <NavBar />
             <div className="main-info-container">
-                <NavBarLeft communities={communities} />
+                <NavBarLeft communities={communities} events={events} />
                 {children}
                 <NavBarRight />
             </div>

@@ -68,6 +68,9 @@ module.exports = (sequelize) => {
             foreignKey: 'user_id',
             otherKey: 'community_id'
         });
+        // User.hasMany(models.Event, {
+        //     foreignKey: 'owner_id'
+        // });
     };
 
     return User;

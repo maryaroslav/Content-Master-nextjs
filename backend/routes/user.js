@@ -3,6 +3,7 @@ const authToken = require('../middleware/authToken');
 const { User } = require('../models');
 
 const userCommunitiesRoutes = require('./userСommunities');
+const userEventsRoutes = require('./userEvents');
 
 const router = express.Router();
 
@@ -37,5 +38,6 @@ router.get('/me', authToken, async (req, res) => {
 });
 
 router.use(userCommunitiesRoutes);
+router.use(userEventsRoutes);
 
 module.exports = router;
