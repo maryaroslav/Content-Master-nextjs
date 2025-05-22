@@ -22,6 +22,13 @@ const postsSlice = createSlice({
             });
             state.list = [...state.list, ...fetchedPosts];
         },
+        setPosts: (state, action) => {
+            const fetchedPosts = action.payload.map((post, index) => {
+                const color = colors[index % colors.length];
+                return { ...post, ...color, removable: false };
+            });
+            state.list = fetchedPosts;
+        },
         addPost: (state, action) => {
             const newPost = action.payload;
             const index = state.list.length;
@@ -29,10 +36,10 @@ const postsSlice = createSlice({
             state.list.unshift({ ...newPost, ...color, removable: true });
         },
         deletePost: (state, action) => {
-            state.list = state.list.filter((post) => post.id !== action.payload);
+            state.list = state.list.filter((post) => post.post_id !== action.payload);
         },
     },
 });
 
-export const { mergePosts, addPost, deletePost } = postsSlice.actions;
+export const { mergePosts, setPosts, addPost, deletePost } = postsSlice.actions;
 export default postsSlice.reducer;

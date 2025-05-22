@@ -1,5 +1,5 @@
 const express = require('express');
-const authToken = require('../middleware/authToken');
+const authToken = require('../middlewares/authToken');
 const { UserCommunity, Community } = require('../models');
 
 const router = express.Router();
@@ -16,7 +16,7 @@ router.get('/usercommunities', authToken, async(req, res) => {
             where: {user_id: userId},
             include: {
                 model: Community,
-                attributes: ['community_id', 'title', 'type', 'image', 'members_count']
+                attributes: ['community_id', 'name', 'privacy', 'photo', 'members_count']
             }
         });
 

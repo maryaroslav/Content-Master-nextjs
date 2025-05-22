@@ -49,6 +49,14 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING(50),
             allowNull: false,
             defaultValue: 'user'
+        },
+        twoFactorEnabled: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
+        twoFactorSecret: {
+            type: DataTypes.STRING(255),
+            allowNull: true
         }
     }, {
         tableName: 'users',
@@ -68,9 +76,16 @@ module.exports = (sequelize) => {
             foreignKey: 'user_id',
             otherKey: 'community_id'
         });
-        // User.hasMany(models.Event, {
-        //     foreignKey: 'owner_id'
-        // });
+        User.hasMany(models.Message, {
+            foreignKey: 'from_user_id',
+            as: 'SentMessages'
+        });
+
+        User.hasMany(models.Message, {
+            foreignKey: 'to_user_id',
+            as: 'ReceivedMessages'
+        });
+
     };
 
     return User;

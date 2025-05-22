@@ -1,12 +1,12 @@
 .sidebarRight-container {
-    width: 23%;
-    background-color: transparent;
+    /* width: 23%; */
+    background-color: #f4f4f4;
     flex-direction: column;
     margin-left: auto;
-    padding: 66px 50px 16px 50px;
-
+    padding: 43px 27px 16px 61px;
+    min-height: 380px;
 }
-.sidebar-name {
+/* .sidebar-name {
     display: flex;
     cursor: pointer;
     margin-bottom: 16px;
@@ -71,4 +71,4 @@
 .card img {
     height: 24px;
     width: 24px;
-}
+} */

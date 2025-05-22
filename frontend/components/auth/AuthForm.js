@@ -22,15 +22,19 @@ const AuthForm = ({ type }) => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
+    const [is2FARequired, setIs2FARequired] = useState(false);
+    const [twoFACode, setTwoFACode] = useState('');
+    const [userId, setUserId] = useState(null);
+
     const router = useRouter();
 
-    useEffect(() => {
-        if (status === 'authenticated') {
-            router.push('/explore')
-        }
-    }, [status]);
+    // useEffect(() => {
+    //     if (status === 'authenticated') {
+    //         router.push('/explore')
+    //     }
+    // }, [status]);
 
-    if (status === 'loading') return null;
+    // if (status === 'loading') return null;
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -56,9 +60,14 @@ const AuthForm = ({ type }) => {
         }
 
         if (type === 'login') {
+            let credentials = { email, password }
+            if (is2FARequired) {
+                credentials.twoFAToken = twoFACode;
+                credentials.userId = userId;
+            }
+
             const result = await signIn('credentials', {
-                email,
-                password,
+                ...credentials,
                 redirect: false,
                 callbackUrl: '/explore'
             });
@@ -66,16 +75,32 @@ const AuthForm = ({ type }) => {
             if (result?.error) {
                 console.log('Login error: ', result.error);
 
+                let parsedError = null;
+                try {
+                    parsedError = JSON.parse(result.error);
+                } catch (err) {
+                    console.warn('Error is not JSON', result.error);
+                }
+
+                if (parsedError?.twofaRequired) {
+                    setIs2FARequired(true);
+                    setUserId(parsedError.userId);
+                    setError('Enter your 2FA code');
+                    setLoading(false);
+                    return;
+                }
+
                 if (result.error === 'CredentialsSignin') {
                     setError('Invalid email or password');
                 } else {
                     setError(result.error);
                 }
-                setLoading(false);
-            } else {
-                router.push('/explore')
-            }
 
+                setLoading(false);
+                return;
+            } else {
+                router.push('/explore');
+            }
         } else {
             try {
                 const res = await fetch('http://localhost:5000/api/auth/register', {
@@ -110,7 +135,7 @@ const AuthForm = ({ type }) => {
                 <form onSubmit={handleSubmit}>
                     <h1>{type === 'login' ? 'Sign In to your account' : 'Create your account'}</h1>
                     {error &&
-                        <div className='error-message'>
+                        <div className={error === 'Enter your 2FA code' ? 'twofa-message' : 'error-message'}>
                             <Image src={crossImg} width={25} height={25} alt='error' />
                             <p>{error}</p>
                         </div>
@@ -136,6 +161,19 @@ const AuthForm = ({ type }) => {
                             className={error && type === 'register' && password.length < 8 ? 'input-error' : ''}
                         />
                     </div>
+                    {is2FARequired && (
+                        <div className="input-twofa input-box">
+                            <p>2FA code</p>
+                            <input
+                                type="text"
+                                placeholder='Enter 2FAcode'
+                                value={twoFACode}
+                                onChange={(e) => setTwoFACode(e.target.value)}
+                                required
+                                className={error && type === 'login' && error ? 'input-error' : ''}
+                            />
+                        </div>
+                    )}
                     {type === 'register' && (
                         <div className='input-username input-box'>
                             <p>Username</p>

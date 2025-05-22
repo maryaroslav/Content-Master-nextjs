@@ -1,8 +1,8 @@
 const express = require('express');
-const authToken = require('../middleware/authToken');
+const authToken = require('../middlewares/authToken');
 const { User } = require('../models');
 
-const userCommunitiesRoutes = require('./userСommunities');
+const userCommunitiesRoutes = require('./userCommunities');
 const userEventsRoutes = require('./userEvents');
 
 const router = express.Router();
@@ -29,11 +29,33 @@ router.get('/me', authToken, async (req, res) => {
             bio: user.bio,
             profile_picture: user.profile_picture,
             created_at: user.created_at,
-            role: user.role
+            role: user.role,
+            twoFactorEnabled: user.twoFactorEnabled
         })
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+router.get('/byusername/:username', authToken, async (req, res) => {
+    try {
+        const user = await User.findOne({
+            where: { username: req.params.username }
+        })
+
+        if (!user) return res.status(404).json({ message: 'User not found' })
+
+        res.json({
+            user_id: user.user_id,
+            username: user.username,
+            full_name: user.full_name,
+            bio: user.bio,
+            profile_picture: user.profile_picture
+        })
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ message: 'Internal server error' })
     }
 });
 

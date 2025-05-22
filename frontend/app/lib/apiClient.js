@@ -1,4 +1,5 @@
 import { getSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export const fetchWithAuth = async (url, options = {}) => {
     const session = await getSession();
@@ -14,7 +15,11 @@ export const fetchWithAuth = async (url, options = {}) => {
     });
 
     console.log('Request sent to:', url);
-    console.log('Authorization header:', res.headers.get('Authorization'));
+    // console.log('Authorization header:', res.headers.get('Authorization'));
+    console.log('Request headers:', {
+        ...options.headers,
+        Authorization: `Bearer ${token}`
+    });
 
     if (!res.ok) {
         const error = await res.json().catch(() => ({}));

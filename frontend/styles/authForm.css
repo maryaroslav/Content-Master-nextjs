@@ -49,7 +49,7 @@ h2 {
     color: #333;
 }
 
-h1 {
+form > h1 {
     text-align: center;
     font-size: 25px;
     padding-bottom: 20px;
@@ -114,6 +114,8 @@ input::placeholder {
 }
 
 .btn-authForm {
+    display: flex;
+    justify-content: center;
     font-family: 'Poppins', sans-serif;
     padding: 15px;
     background-color: #10100E;
@@ -140,12 +142,19 @@ input::placeholder {
     margin-top: 6px;
 }
 
-.error-message {
+.error-message, .twofa-message {
     display: flex;
     align-items: center;
     justify-items: center;
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 10px;
+}
+
+.error-message {
     background-color: rgba(255, 0, 0, 0.692);
+}
+
+.twofa-message {
+    background-color: rgba(2, 255, 23, 0.521);
 }

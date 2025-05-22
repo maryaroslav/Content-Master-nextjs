@@ -6,6 +6,9 @@ const Community = require('./Community');
 const UserCommunity = require('./UserCommunity');
 const Event = require('./Event');
 const UserEvent = require('./UserEvent');
+const Follow = require('./Follow');
+const Message = require('./Message');
+const Post = require('./Post');
 
 const db = {};
 
@@ -17,6 +20,9 @@ db.Community = Community(sequelize);
 db.UserCommunity = UserCommunity(sequelize);
 db.Event = Event(sequelize);
 db.UserEvent = UserEvent(sequelize);
+db.Follow = Follow(sequelize);
+db.Message = Message(sequelize);
+db.Post = Post(sequelize);
 
 Object.values(db).forEach((model) => {
     if (model.associate) {

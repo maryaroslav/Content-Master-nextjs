@@ -1,8 +1,20 @@
 .sidebar-container {
-    width: 23%;
-    background-color: transparent;
+    /* width: 23%; */
+    /* width: 400px; */
+    background-color: #f4f4f4;
     flex-direction: column;
-    padding: 66px 50px 16px 50px;
+    padding: 43px 61px 16px 27px;
+}
+
+.communities-section {
+    margin-bottom: 16px;
+}
+
+.communities-section, .events-section {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px 15px;
+    min-width: 291px;
 }
 
 .sidebar-name {
@@ -43,6 +55,7 @@
 .community-item, .event-item {
     display: flex;
     margin-bottom: 16px;
+    cursor: pointer;
 }
 
 .event-item img {

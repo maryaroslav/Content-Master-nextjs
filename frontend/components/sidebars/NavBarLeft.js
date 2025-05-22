@@ -31,7 +31,7 @@ const NavBarLeft = ({ communities, events }) => {
 
   return (
     <div className="sidebar-container">
-      <div>
+      <div className="communities-section">
         <div className='sidebar-name' onClick={() => setShowAllCommunities(!showAllCommunities)}>
           <p className="sidebar-title">My Community</p>
           <Image src={arrowDown} alt="" className={showAllCommunities ? "rotated" : "180deg"} />
@@ -39,10 +39,10 @@ const NavBarLeft = ({ communities, events }) => {
         <div className="community-list">
           {(showAllCommunities ? communities : communities.slice(0, 4)).map((community, index) => (
             <div key={community.community_id} className="community-item">
-              <Image src={`http://localhost:5000${community.image}`} width={100} height={100} alt="" />
+              <Image src={`http://localhost:5000${community.photo}`} width={100} height={100} alt="" />
               <div key={index} className='item-title'>
-                <p className="community-type">{community.type}</p>
-                <p className="community-name">{community.title}</p>
+                <p className="community-type">{community.privacy}</p>
+                <p className="community-name">{community.name}</p>
                 <p className="community-members">{formatMembersCount(community.members_count)} Members</p>
               </div>
             </div>

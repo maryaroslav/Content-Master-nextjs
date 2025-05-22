@@ -9,11 +9,11 @@ module.exports = (sequelize) => {
             autoIncrement: true,
             allowNull: false
         },
-        title: {
+        name: {
             type: DataTypes.STRING(255),
             allowNull: false,
         },
-        type: {
+        privacy: {
             type: DataTypes.STRING(50),
             allowNull: false,
         },
@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
             type: DataTypes.TEXT,
             allowNull: true
         },
-        image: {
+        photo: {
             type: DataTypes.STRING(255),
             allowNull: false
         },
@@ -33,6 +33,10 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
             defaultValue: 0
+        },
+        theme: {
+            type: DataTypes.STRING(255),
+            allowNull: false,
         }
     }, {
         tableName: 'communities',

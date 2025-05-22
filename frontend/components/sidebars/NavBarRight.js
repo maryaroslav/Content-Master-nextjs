@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import CommunityCard from '../CommunityCard';
+import CommunityCard from '../community/CommunityCard';
 
 import '@/styles/navBarRight.css'
 
@@ -43,12 +43,12 @@ const NavBarRight = () => {
 
   return (
     <div className="sidebarRight-container">
-      <div>
+      <div className='communities-section'>
         <div className='sidebar-name' onClick={() => setShowAllCommunities(!showAllCommunities)}>
           <p className="sidebar-title">Popular Tags</p>
           <Image src={arrowDown} alt="toggle" className={showAllCommunities ? "rotated" : "180deg"}/>
         </div>
-        <div className="community-list">
+        {/* <div className="community-list">
           {(showAllCommunities ? items : items.slice(0, 4)).map((tag, index) => (
             <div key={index} className="community-item">
               <CommunityCard bg={tag.bg} svg={tag.svg} color={tag.color} />
@@ -58,14 +58,14 @@ const NavBarRight = () => {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
       <div className="events-section">
         <div className='sidebar-name' onClick={() => setShowAllEvents(!showAllEvents)}>
           <p className="sidebar-title">Podcasts</p>
           <Image src={arrowDown} alt="toggle" className={showAllEvents ? "rotated" : ""}/>
         </div>
-        <div className="event-list">
+        {/* <div className="event-list">
           {(showAllEvents ? podcasts : podcasts.slice(0, 6)).map((podcast, index) => (
             <div key={index} className="event-item">
               <Image src={podcast.img} alt={podcast.title}/>
@@ -75,7 +75,7 @@ const NavBarRight = () => {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   )

@@ -37,6 +37,17 @@ a {
   text-decoration: none;
 }
 
+button {
+  all: unset;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  background-color: #479BD8;
+  padding: 5px 10px;
+  border-radius: 10px;
+  color: #F3F3F3;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

@@ -11,3 +11,7 @@ test.js
 **/data/
 
 /.vscode/
+
+**/uploads/
+
+**/package-lock.json

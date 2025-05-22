@@ -1,36 +1,47 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import jwt from 'jsonwebtoken';
+import axios from 'axios';
 
 export const authOptions = {
     providers: [
         CredentialsProvider({
             name: 'Credentials',
             credentials: {
-                email: { label: 'Email', type: 'email' },
-                password: { label: 'Password', type: 'password' }
+                email: { label: 'Email', type: 'text' },
+                password: { label: 'Password', type: 'password' },
+                twoFAToken: { label: '2FA Token', type: 'text' },
+                userId: { label: 'UserId', type: 'text' },
             },
             async authorize(credentials) {
+                const { email, password, twoFAToken, userId } = credentials;
+                console.log('[NEXTAUTH] JWT_SECRET:', process.env.JWT_SECRET);
                 try {
-                    const res = await fetch('http://localhost:5000/api/auth/login', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(credentials)
-                    });
-
-                    if (!res.ok) {
-                        const errorData = await res.json();
-                        console.error('Login failed:', errorData);
-                        throw new Error(errorData.message || 'Invalid credentials');
+                    if (twoFAToken && userId) {
+                        const res = await axios.post('http://localhost:5000/api/auth/2fa/verify-login', {
+                            userId,
+                            token: twoFAToken
+                        });
+                        const { token, user } = res.data;
+                        user.token = token;
+                        return user;
+                    } else {
+                        const res = await axios.post('http://localhost:5000/api/auth/login', {
+                            email,
+                            password
+                        });
+                        if (res.data.twofaRequired) {
+                            const error = new Error('2FA Required');
+                            error.name = 'TwoFA';
+                            error.message = JSON.stringify({ twofaRequired: true, userId: res.data.userId });
+                            throw error;
+                        }
+                        const { token, user } = res.data;
+                        user.token = token;
+                        return user;
                     }
-
-                    const data = await res.json();
-                    console.log('Login success:', data);
-
-                    return { id: String(data.user.id || data.user.user_id), email: data.user.email, token: data.token };
-                } catch (error) {
-                    console.error('Login error:', error.message);
-                    return null;
+                } catch (err) {
+                    if (err.name === 'TwoFA') throw err;
+                    throw new Error(err?.response?.data?.message || 'Login failed');
                 }
             }
         })
@@ -38,41 +49,30 @@ export const authOptions = {
     session: {
         strategy: 'jwt'
     },
-    jwt: {
-        secret: process.env.NEXTAUTH_SECRET,
-        encode: async ({token, secret}) => {
-            return jwt.sign(token, secret, {algorithm: 'HS256'});
-        },
-        decode: async ({token , secret}) => {
-            return jwt.verify(token, secret);
-        }
-    },
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
-                token.accessToken = user.token;
-                token.id = user.id || user.user_id;;
+                token.id = user.id;
                 token.email = user.email;
+                token.accessToken = user.token;
             }
             return token;
         },
         async session({ session, token }) {
-            session.accessToken = token.accessToken;
             session.user = {
                 id: token.id,
-                email: token.email,
+                email: token.email
             };
-            console.log('Session Updated:', session);
+            session.accessToken = token.accessToken;
             return session;
         }
     },
     pages: {
-        signIn: "/login"
+        signIn: '/login'
     },
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: process.env.JWT_SECRET,
     debug: true
 };
 
 const handler = NextAuth(authOptions);
-
 export { handler as GET, handler as POST };
