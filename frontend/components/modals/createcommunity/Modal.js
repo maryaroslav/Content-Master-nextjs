@@ -18,7 +18,6 @@ const Modal = ({ closeModal }) => {
     const [isStepValid, setIsStepValid] = useState(false);
     const [formData, setFormData] = useState({});
 
-    // const nextStep = () => setStep((prev) => Math.min(prev + 1, 6));
     const nextStep = () => {
         if (step !== 1 && !isStepValid) return;
         setStep((prev) => Math.min(prev + 1, 6))

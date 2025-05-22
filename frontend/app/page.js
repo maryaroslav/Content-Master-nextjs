@@ -38,7 +38,7 @@ const Welcome = () => {
     useEffect(() => {
         const fetchToken = async () => {
             const session = await getSession();
-            console.log("🔹 Session from NextAuth:", session);
+            console.log("Session from NextAuth:", session);
         };
 
         fetchToken();

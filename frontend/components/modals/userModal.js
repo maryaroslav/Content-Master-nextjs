@@ -24,9 +24,9 @@ export default function userModal({ isOpen, onClose }) {
     return (
         <div ref={modalRef} className={styles.dropdown}>
             <ul>
-                <li>Профиль</li>
-                <li>Настройки</li>
-                <li>Выйти</li>
+                <li></li>
+                <li></li>
+                <li></li>
             </ul>
         </div>
     );

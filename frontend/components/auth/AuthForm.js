@@ -28,14 +28,6 @@ const AuthForm = ({ type }) => {
 
     const router = useRouter();
 
-    // useEffect(() => {
-    //     if (status === 'authenticated') {
-    //         router.push('/explore')
-    //     }
-    // }, [status]);
-
-    // if (status === 'loading') return null;
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         setError('');

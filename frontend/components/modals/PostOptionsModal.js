@@ -6,7 +6,6 @@ const PostOptionsModal = ({ onDelete, onEdit }) => {
     const [open, setOpen] = useState(false);
     const ref = useRef();
 
-    // Закрыть при клике вне модалки
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (ref.current && !ref.current.contains(e.target)) {

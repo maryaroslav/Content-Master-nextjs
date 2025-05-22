@@ -17,7 +17,6 @@ import HeaderMain from "@/components/headers/HeaderMain";
 export default function ChatPage() {
     const [socket, setSocket] = useState(null);
     const [chat, setChat] = useState([]);
-    console.log('Chat: ', chat);
     const [message, setMessage] = useState('');
     const [toUserId, setToUserId] = useState(null);
     const [currentUserId, setCurrentUserId] = useState(null);
@@ -31,7 +30,7 @@ export default function ChatPage() {
     const urlToUserId = searchParams.get('to');
 
     const companion = followed.find(user => user.user_id === toUserId);
-    const companionName = companion?.username || `Пользователь ${toUserId}`;
+    const companionName = companion?.username || `User ${toUserId}`;
 
     useEffect(() => {
         if (urlToUserId) {
@@ -171,7 +170,6 @@ export default function ChatPage() {
             message: String(message),
             type: 'text'
         });
-        // setChat((prev) => [...prev, { from_user_id: currentUserId, to_user_id: toUserId, message }]);
         setMessage('');
     };
 
@@ -288,7 +286,7 @@ export default function ChatPage() {
                                     const isCurrentUser = msg.from_user_id === currentUserId;
                                     const username = isCurrentUser
                                         ? currentUserProfile?.username || 'Вы'
-                                        : msg.FromUser?.username || `Пользователь ${msg.from_user_id}`;
+                                        : msg.FromUser?.username || `User ${msg.from_user_id}`;
                                     const avatarUrl = isCurrentUser
                                         ? currentUserProfile?.profile_picture
                                             ? `http://localhost:5000/uploads/${currentUserProfile.profile_picture}`

@@ -15,7 +15,7 @@
     display: flex;
     min-height: 100vh;
     height: 100vh;
-    overflow: hidden; /* предотврати перекрытие */
+    overflow: hidden;
 }
 
 .sidebar-fixed {

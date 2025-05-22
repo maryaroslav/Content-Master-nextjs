@@ -70,7 +70,6 @@ const stepTwo = ({ initialTheme = null, onSelect, onValidChange }) => {
                             {cat.title && <h3 className='createcommunity-theme-category-heading'>{cat.title}</h3>}
                             {cat.items.map((item) => (
                                 <label key={item} className="createcommunity-theme-item">
-                                    {/* Скрытый radio для доступности */}
                                     <input
                                         type="radio"
                                         name="theme"

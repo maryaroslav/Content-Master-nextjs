@@ -72,7 +72,7 @@ const ProfilePage = () => {
             })
             setIsFollowing(!isFollowing)
         } catch (err) {
-            console.error('Ошибка follow:', err)
+            console.error('Error follow:', err)
         } finally {
             setLoadingFollow(false)
         }

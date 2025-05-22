@@ -42,11 +42,6 @@ const HeaderMain = () => {
         router.push('/explore');
     }
 
-    const handleToChat = (event) => {
-        event.preventDefault();
-        router.push('/chat');
-    }
-
     const handleToProfileUser = (event) => {
         event.preventDefault();
         if (user?.username) {

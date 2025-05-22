@@ -1,22 +1,11 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import '@/styles/feedCommunity.css'
 import arrowDown from '@/public/img/icons/arrow-down.svg';
 
 const FeedCommunity = () => {
-    const dispatch = useDispatch();
     const [events, setEvents] = useState([]);
-
-    // useEffect(() => {
-    //     fetch('/data/events.json')
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             setEvents(data);
-    //         })
-    //         .catch((err) => console.error('Error loading communities:', err));
-    // }, [dispatch]);
 
     return (
         <div className='feedcomunnity-grey'>

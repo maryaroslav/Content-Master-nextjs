@@ -15,7 +15,6 @@ export const fetchWithAuth = async (url, options = {}) => {
     });
 
     console.log('Request sent to:', url);
-    // console.log('Authorization header:', res.headers.get('Authorization'));
     console.log('Request headers:', {
         ...options.headers,
         Authorization: `Bearer ${token}`
